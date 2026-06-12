@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="google-site-verification" content="HcC4yUhn0URO5BWJhAVYncXfGiGI5mL4oyx2lYXkgiE" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Samundra Aryal — Computer Engineering</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#060b10; --bg2:#0d1520; --bg3:#111d2b;
+      --cyan:#00f5d4; --cyan-dim:#00c4aa33; --blue:#38b6ff;
+      --text:#c8dde8; --muted:#5a7a8a; --border:#1a2e3b;
+      --mono:'Share Tech Mono',monospace; --display:'Syne',sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--display); font-size:16px; line-height:1.7; overflow-x:hidden; }
+    body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events:none; z-index:0; }
+    body::after { content:''; position:fixed; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,245,212,0.01) 2px,rgba(0,245,212,0.01) 4px); pointer-events:none; z-index:0; }
+
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:1.1rem 3rem; background:rgba(6,11,16,0.88); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .nav-logo { font-family:var(--mono); color:var(--cyan); font-size:1rem; letter-spacing:0.08em; }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a { font-family:var(--mono); font-size:0.73rem; color:var(--muted); text-decoration:none; letter-spacing:0.14em; text-transform:uppercase; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--cyan); }
+
+    #hero { position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:0 3rem; overflow:hidden; }
+    .hero-grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,245,212,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,212,0.035) 1px,transparent 1px); background-size:50px 50px; mask-image:radial-gradient(ellipse 85% 85% at 50% 50%,black,transparent); }
+    .hero-glow { position:absolute; width:700px; height:700px; border-radius:50%; background:radial-gradient(circle,rgba(0,245,212,0.07) 0%,transparent 70%); top:50%; left:45%; transform:translate(-50%,-50%); pointer-events:none; }
+    .hero-content { position:relative; z-index:1; max-width:850px; }
+    .hero-label { font-family:var(--mono); font-size:0.73rem; color:var(--cyan); letter-spacing:0.26em; text-transform:uppercase; margin-bottom:1.2rem; display:flex; align-items:center; gap:0.8rem; }
+    .hero-label::before { content:''; width:32px; height:1px; background:var(--cyan); }
+    .hero-name { font-size:clamp(3rem,8vw,6rem); font-weight:800; line-height:1.0; color:#fff; margin-bottom:0.4rem; }
+    .hero-name span { color:var(--cyan); }
+    .hero-title { font-family:var(--mono); font-size:clamp(0.85rem,2vw,1rem); color:var(--muted); margin-bottom:2.5rem; letter-spacing:0.06em; min-height:1.5em; }
+    .typed { color:var(--blue); }
+    .hero-actions { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
+    .hero-cta { display:inline-flex; align-items:center; gap:0.6rem; padding:0.75rem 1.8rem; border:1px solid var(--cyan); color:var(--cyan); font-family:var(--mono); font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; text-decoration:none; transition:background 0.2s,color 0.2s; }
+    .hero-cta:hover { background:var(--cyan); color:var(--bg); }
+    .hero-badge { font-family:var(--mono); font-size:0.72rem; color:var(--cyan); background:var(--cyan-dim); border:1px solid rgba(0,245,212,0.2); padding:0.3rem 0.9rem; letter-spacing:0.1em; }
+    .scroll-line { position:absolute; bottom:2rem; left:3rem; display:flex; align-items:center; gap:0.8rem; font-family:var(--mono); font-size:0.68rem; color:var(--muted); letter-spacing:0.2em; text-transform:uppercase; }
+    .scroll-line::after { content:''; width:60px; height:1px; background:var(--muted); animation:scrollPulse 2s ease-in-out infinite; }
+    @keyframes scrollPulse { 0%,100%{opacity:.3;width:60px} 50%{opacity:1;width:80px} }
+
+    section { position:relative; z-index:1; padding:6rem 3rem; max-width:1100px; margin:0 auto; }
+    .section-label { font-family:var(--mono); font-size:0.7rem; color:var(--cyan); letter-spacing:0.3em; text-transform:uppercase; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.8rem; }
+    .section-label::before { content:''; width:24px; height:1px; background:var(--cyan); }
+    .section-title { font-size:clamp(1.8rem,4vw,2.6rem); font-weight:800; color:#fff; margin-bottom:3rem; line-height:1.1; }
+    .divider { border:none; border-top:1px solid var(--border); max-width:1100px; margin:0 auto; }
+
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+    .about-text p { color:var(--text); margin-bottom:1.2rem; font-size:1rem; }
+    .about-text p span { color:var(--cyan); }
+    .about-stats { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); }
+    .stat-box { background:var(--bg2); padding:1.5rem; }
+    .stat-number { font-family:var(--mono); font-size:1.8rem; color:var(--cyan); display:block; line-height:1; margin-bottom:0.3rem; }
+    .stat-label { font-family:var(--mono); font-size:0.68rem; color:var(--muted); letter-spacing:0.12em; text-transform:uppercase; }
+
+    .edu-list { display:flex; flex-direction:column; gap:1.5rem; }
+    .edu-card { border:1px solid var(--border); background:var(--bg2); padding:2rem; position:relative; overflow:hidden; }
+    .edu-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--cyan); }
+    .edu-top { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; margin-bottom:0.4rem; }
+    .edu-school { font-size:1.15rem; font-weight:700; color:#fff; }
+    .edu-date { font-family:var(--mono); font-size:0.72rem; color:var(--muted); letter-spacing:0.1em; white-space:nowrap; }
+    .edu-degree { font-family:var(--mono); font-size:0.83rem; color:var(--cyan); margin-bottom:0.7rem; }
+    .edu-awards { display:flex; flex-wrap:wrap; gap:0.4rem; }
+    .edu-award { font-family:var(--mono); font-size:0.68rem; color:var(--cyan); background:var(--cyan-dim); border:1px solid rgba(0,245,212,0.15); padding:0.2rem 0.6rem; letter-spacing:0.05em; }
+
+    .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.5rem; }
+    .skill-category { border:1px solid var(--border); background:var(--bg2); padding:1.5rem; }
+    .skill-cat-title { font-family:var(--mono); font-size:0.68rem; color:var(--cyan); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border); }
+    .skill-tags { display:flex; flex-wrap:wrap; gap:0.5rem; }
+    .skill-tag { font-family:var(--mono); font-size:0.76rem; color:var(--text); background:var(--bg3); border:1px solid var(--border); padding:0.3rem 0.8rem; transition:border-color 0.2s,color 0.2s; }
+    .skill-tag:hover { border-color:var(--cyan); color:var(--cyan); }
+
+    .exp-list { display:flex; flex-direction:column; gap:1.5rem; }
+    .exp-card { border:1px solid var(--border); background:var(--bg2); padding:2rem; position:relative; }
+    .exp-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--blue); }
+    .exp-top { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; margin-bottom:0.3rem; }
+    .exp-title { font-size:1.05rem; font-weight:700; color:#fff; }
+    .exp-date { font-family:var(--mono); font-size:0.72rem; color:var(--muted); white-space:nowrap; }
+    .exp-org { font-family:var(--mono); font-size:0.82rem; color:var(--blue); margin-bottom:0.8rem; }
+    .exp-bullets { list-style:none; }
+    .exp-bullets li { font-size:0.9rem; color:var(--text); padding:0.3rem 0 0.3rem 1.2rem; position:relative; line-height:1.65; }
+    .exp-bullets li::before { content:'›'; position:absolute; left:0; color:var(--cyan); }
+
+    .projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; }
+    .project-card { border:1px solid var(--border); background:var(--bg2); padding:2rem; position:relative; overflow:hidden; transition:border-color 0.3s; }
+    .project-card::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 0%,rgba(0,245,212,0.05),transparent 70%); opacity:0; transition:opacity 0.3s; }
+    .project-card:hover { border-color:rgba(0,245,212,0.35); }
+    .project-card:hover::after { opacity:1; }
+    .project-num { font-family:var(--mono); font-size:0.68rem; color:var(--muted); letter-spacing:0.18em; margin-bottom:0.8rem; }
+    .project-title { font-size:1.1rem; font-weight:700; color:#fff; margin-bottom:0.5rem; }
+    .project-desc { font-size:0.88rem; color:var(--muted); margin-bottom:1.2rem; line-height:1.6; }
+    .project-tech { display:flex; flex-wrap:wrap; gap:0.4rem; }
+    .project-tech span { font-family:var(--mono); font-size:0.68rem; color:var(--cyan); background:var(--cyan-dim); padding:0.2rem 0.6rem; }
+    .badge-cs { position:absolute; top:1rem; right:1rem; font-family:var(--mono); font-size:0.62rem; color:var(--muted); border:1px solid var(--border); padding:0.2rem 0.5rem; letter-spacing:0.1em; text-transform:uppercase; }
+
+    .contact-inner { border:1px solid var(--border); background:var(--bg2); padding:3rem; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+    .contact-info p { font-size:0.95rem; color:var(--text); margin-bottom:2rem; }
+    .contact-link { display:flex; align-items:center; gap:0.8rem; font-family:var(--mono); font-size:0.8rem; color:var(--text); text-decoration:none; padding:0.8rem 0; border-bottom:1px solid var(--border); transition:color 0.2s; }
+    .contact-link:hover { color:var(--cyan); }
+    .contact-link:last-child { border-bottom:none; }
+    .contact-link svg { width:16px; height:16px; color:var(--cyan); flex-shrink:0; }
+    .contact-form { display:flex; flex-direction:column; gap:1rem; }
+    .contact-form input,.contact-form textarea { background:var(--bg3); border:1px solid var(--border); color:var(--text); font-family:var(--mono); font-size:0.82rem; padding:0.85rem 1rem; outline:none; resize:none; transition:border-color 0.2s; }
+    .contact-form input:focus,.contact-form textarea:focus { border-color:var(--cyan); }
+    .contact-form input::placeholder,.contact-form textarea::placeholder { color:var(--muted); }
+    .btn-send { background:transparent; border:1px solid var(--cyan); color:var(--cyan); font-family:var(--mono); font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase; padding:0.85rem 1.5rem; cursor:pointer; transition:background 0.2s,color 0.2s; align-self:flex-start; }
+    .btn-send:hover { background:var(--cyan); color:var(--bg); }
+
+    footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:1.8rem 3rem; display:flex; justify-content:space-between; align-items:center; }
+    footer p { font-family:var(--mono); font-size:0.7rem; color:var(--muted); letter-spacing:0.1em; }
+    footer span { color:var(--cyan); }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    .hero-label  { animation:fadeUp 0.6s ease both; animation-delay:0.1s; }
+    .hero-name   { animation:fadeUp 0.6s ease both; animation-delay:0.25s; }
+    .hero-title  { animation:fadeUp 0.6s ease both; animation-delay:0.4s; }
+    .hero-actions{ animation:fadeUp 0.6s ease both; animation-delay:0.55s; }
+
+    @media(max-width:768px){
+      nav{padding:1rem 1.5rem;} .nav-links{gap:1rem;} .nav-links a{font-size:0.62rem;}
+      section{padding:4rem 1.5rem;} #hero{padding:0 1.5rem;}
+      .about-grid{grid-template-columns:1fr;gap:2.5rem;}
+      .contact-inner{grid-template-columns:1fr;gap:2rem;padding:1.5rem;}
+      footer{flex-direction:column;gap:0.4rem;text-align:center;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">SA_</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-label">Computer Engineering · UNT · Denton, TX</div>
+    <h1 class="hero-name">Samundra<br /><span>Aryal</span></h1>
+    <p class="hero-title"><span id="typed-text" class="typed"></span><span id="cursor">|</span></p>
+    <div class="hero-actions">
+      <a href="#projects" class="hero-cta">View My Work →</a>
+      <span class="hero-badge">★ GPA 4.0 · President's List</span>
+    </div>
+  </div>
+  <div class="scroll-line">Scroll</div>
+</section>
+
+<hr class="divider" />
+
+<section id="about">
+  <div class="section-label">01 — Who I Am</div>
+  <h2 class="section-title">About Me</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Hey! I'm <span>Samundra Aryal</span> — a Computer Engineering student at the <span>University of North Texas</span> maintaining a perfect <span>4.0 GPA</span> and honored on the President's List.</p>
+      <p>I have hands-on experience in <span>C++ and Python</span>, with growing expertise in digital hardware design using HDLs. My interests span digital logic, finite state machines, embedded systems, VLSI, and intelligent computing systems.</p>
+      <p>Outside academics, I serve as <span>President of the Robotics & AI Club</span> and Training Director at the UNT Welcome Centre — mentoring, leading, and building things that matter.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-box"><span class="stat-number">4.0</span><span class="stat-label">GPA</span></div>
+      <div class="stat-box"><span class="stat-number">UNT</span><span class="stat-label">University</span></div>
+      <div class="stat-box"><span class="stat-number">CE</span><span class="stat-label">Major</span></div>
+      <div class="stat-box"><span class="stat-number">TX</span><span class="stat-label">Location</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<section id="education">
+  <div class="section-label">02 — Background</div>
+  <h2 class="section-title">Education</h2>
+  <div class="edu-list">
+    <div class="edu-card">
+      <div class="edu-top">
+        <div class="edu-school">University of North Texas — Denton, TX</div>
+        <div class="edu-date">Aug 2024 – Present</div>
+      </div>
+      <div class="edu-degree">B.S. Computer Engineering · CGPA: 4.0</div>
+      <div class="edu-awards">
+        <span class="edu-award">President's List</span>
+        <span class="edu-award">UNT Excellence Scholarship ($6,000)</span>
+        <span class="edu-award">Instate Tuition Waiver ($12,300)</span>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-top">
+        <div class="edu-school">St. Xavier's College — Kathmandu, Nepal</div>
+        <div class="edu-date">May 2020 – July 2022</div>
+      </div>
+      <div class="edu-degree">Mathematics · Physics · Chemistry</div>
+      <div class="edu-awards">
+        <span class="edu-award">Full Tuition Scholarship ($5,000)</span>
+        <span class="edu-award">Mathematics — A</span>
+        <span class="edu-award">Physics — A</span>
+        <span class="edu-award">Chemistry — A</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<section id="skills">
+  <div class="section-label">03 — What I Know</div>
+  <h2 class="section-title">Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-category">
+      <div class="skill-cat-title">Programming & Hardware</div>
+      <div class="skill-tags">
+        <span class="skill-tag">C++</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Verilog</span>
+        <span class="skill-tag">HTML</span>
+        <span class="skill-tag">CSS</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-title">Digital Systems & CE</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Digital Logic Design</span>
+        <span class="skill-tag">Finite State Machines</span>
+        <span class="skill-tag">Embedded Systems</span>
+        <span class="skill-tag">VLSI Concepts</span>
+        <span class="skill-tag">Boolean Algebra</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-title">Operating Systems</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Linux (Kali)</span>
+        <span class="skill-tag">Ubuntu</span>
+        <span class="skill-tag">Windows</span>
+        <span class="skill-tag">macOS</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-title">Leadership</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Team Leadership</span>
+        <span class="skill-tag">Mentoring</span>
+        <span class="skill-tag">Public Speaking</span>
+        <span class="skill-tag">Technical Comms</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<section id="experience">
+  <div class="section-label">04 — Where I've Worked</div>
+  <h2 class="section-title">Experience</h2>
+  <div class="exp-list">
+    <div class="exp-card">
+      <div class="exp-top">
+        <div class="exp-title">Eagle Ambassador — Training Director</div>
+        <div class="exp-date">Dec 2024 – Present</div>
+      </div>
+      <div class="exp-org">University of North Texas · Denton, TX</div>
+      <ul class="exp-bullets">
+        <li>Supervised and mentored a team of 6–7 new ambassadors, providing structured training on tour scripts, campus navigation, and effective communication.</li>
+        <li>Coordinated campus outreach and event operations, ensuring seamless experiences for prospective students and families.</li>
+      </ul>
+    </div>
+    <div class="exp-card">
+      <div class="exp-top">
+        <div class="exp-title">Teacher</div>
+        <div class="exp-date">Dec 2022 – June 2023</div>
+      </div>
+      <div class="exp-org">Partnership in Education (PIE) · Kathmandu, Nepal</div>
+      <ul class="exp-bullets">
+        <li>Designed and delivered math and science instruction for underprivileged and differently abled students, adapting lessons to diverse learning needs.</li>
+        <li>Cultivated an inclusive, growth-oriented classroom that promoted engagement, confidence, and critical thinking.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<section id="projects">
+  <div class="section-label">05 — What I've Built</div>
+  <h2 class="section-title">Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">PROJECT / 001</div>
+      <div class="project-title">Personal Portfolio Website</div>
+      <p class="project-desc">This site! Built from scratch with pure HTML, CSS, and JavaScript. Dark techy aesthetic, typing animation, scroll-in effects, and fully responsive layout.</p>
+      <div class="project-tech"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+    </div>
+    <div class="project-card">
+      <div class="badge-cs">Coming Soon</div>
+      <div class="project-num">PROJECT / 002</div>
+      <div class="project-title">Robotics & AI Club Project</div>
+      <p class="project-desc">As President of UNT's Robotics & AI Club, leading a collaborative engineering project. Details and demo coming soon.</p>
+      <div class="project-tech"><span>Python</span><span>AI/ML</span></div>
+    </div>
+    <div class="project-card">
+      <div class="badge-cs">Coming Soon</div>
+      <div class="project-num">PROJECT / 003</div>
+      <div class="project-title">Digital Logic / FSM Project</div>
+      <p class="project-desc">Applying digital logic design, finite state machines, and Verilog knowledge into a real hardware project. More details coming this summer.</p>
+      <div class="project-tech"><span>Verilog</span><span>C++</span><span>Digital Logic</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<section id="contact">
+  <div class="section-label">06 — Get In Touch</div>
+  <h2 class="section-title">Contact</h2>
+  <div class="contact-inner">
+    <div class="contact-info">
+      <p>I'm open to internship opportunities, research collaborations, or just a conversation about engineering. Reach out anytime!</p>
+      <a href="mailto:Samundraaryal999@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        Samundraaryal999@gmail.com
+      </a>
+      <a href="tel:+19403630144" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+        +1 (940) 363-0144
+      </a>
+      <a href="https://linkedin.com/" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+    </div>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit" class="btn-send">Send Message →</button>
+      <p id="form-msg" style="font-family:var(--mono);font-size:0.78rem;color:var(--cyan);display:none;">Message sent! I'll get back to you soon.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span>Samundra Aryal</span> — Built with HTML, CSS & JS.</p>
+  <p>Denton, TX · <span>UNT</span> Computer Engineering · <span>GPA 4.0</span></p>
+</footer>
+
+<script>
+  const phrases = [
+    'Computer Engineering @ UNT.',
+    'C++  ·  Python  ·  Verilog.',
+    'Digital Logic & Embedded Systems.',
+    'GPA 4.0  ·  President\'s List.',
+    'President, Robotics & AI Club.'
+  ];
+  let pi=0,ci=0,deleting=false;
+  const el=document.getElementById('typed-text');
+  const cur=document.getElementById('cursor');
+  setInterval(()=>{cur.style.opacity=cur.style.opacity==='0'?'1':'0';},500);
+  function type(){
+    const phrase=phrases[pi];
+    if(!deleting){
+      el.textContent=phrase.slice(0,++ci);
+      if(ci===phrase.length){deleting=true;setTimeout(type,2000);return;}
+    } else {
+      el.textContent=phrase.slice(0,--ci);
+      if(ci===0){deleting=false;pi=(pi+1)%phrases.length;}
+    }
+    setTimeout(type,deleting?38:70);
+  }
+  type();
+
+  function handleSubmit(e){
+    e.preventDefault();
+    const msg=document.getElementById('form-msg');
+    msg.style.display='block';
+    e.target.reset();
+    setTimeout(()=>msg.style.display='none',4000);
+  }
+
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}
+    });
+  },{threshold:0.08});
+
+  document.querySelectorAll('.edu-card,.skill-category,.project-card,.exp-card,.about-stats,.contact-inner').forEach(el=>{
+    el.style.opacity='0';
+    el.style.transform='translateY(20px)';
+    el.style.transition='opacity 0.55s ease,transform 0.55s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
